@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.*;
-
 public class UserDAO {
     private static final String INSERT_USER = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
     private static final String SELECT_USER_BY_EMAIL = "SELECT * FROM users WHERE email = ?";

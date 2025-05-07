@@ -5,27 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-
     private static final String URL = "jdbc:mysql://localhost:3306/attendance_system";
-    private static final String USER = "root"; // or 'sams_user' if you created one
-    private static final String PASSWORD = "Vinay@123"; // change this
+    private static final String USER = "root";
+    private static final String PASSWORD = "Vinay@123";
 
-    private static Connection connection = null;
+    private DBConnection() {} // prevent instantiation
 
-    // Private constructor to prevent instantiation
-    private DBConnection() {}
-
-    public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                // Load JDBC Driver (optional in modern versions)
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("✅ Connected to MySQL!");
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("❌ Failed to connect to DB: " + e.getMessage());
-            }
+    public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Optional in modern JDBC
+        } catch (ClassNotFoundException e) {
+            System.out.println("MySQL JDBC driver not found: " + e.getMessage());
         }
-        return connection;
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/attendance_system", "root", "Vinay@123");
     }
 }
